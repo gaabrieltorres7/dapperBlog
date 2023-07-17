@@ -8,7 +8,8 @@ public class Program
 
   static void Main (string[] args) 
   {
-    ReadUsers();
+    // ReadUsers();
+    ReadUser();
   }
 
   public static void ReadUsers() 
@@ -23,6 +24,16 @@ public class Program
       }
     }
 
+  }
+
+  public static void ReadUser() 
+  {
+    using (var connection = new SqlConnection(CONNECTION_STRING)) 
+    {
+      connection.Open();
+      var user = connection.Get<User>(1);
+      Console.WriteLine(@$"Name: {user.Name}");
+    }
   }
 
 }
