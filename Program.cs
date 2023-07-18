@@ -11,7 +11,8 @@ public class Program
     // ReadUsers();
     // ReadUser();
     // CreateUser();
-    UpdateUser();
+    // UpdateUser();
+    DeleteUser();
   }
 
   public static void ReadUsers() 
@@ -74,6 +75,17 @@ public class Program
       connection.Open();
       connection.Update<User>(user);
       Console.WriteLine("User updated succesfully!");
+    };
+  }
+
+  public static void DeleteUser() 
+  {
+    using (var connection = new SqlConnection(CONNECTION_STRING)) 
+    {
+      connection.Open();
+      var user = connection.Get<User>(2);
+      connection.Delete<User>(user);
+      Console.WriteLine("User deleted succesfully!");
     };
   }
 }
