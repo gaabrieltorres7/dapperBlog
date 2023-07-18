@@ -9,7 +9,9 @@ public class Program
   static void Main (string[] args) 
   {
     // ReadUsers();
-    ReadUser();
+    // ReadUser();
+    CreateUser();
+    
   }
 
   public static void ReadUsers() 
@@ -36,4 +38,22 @@ public class Program
     }
   }
 
+  public static void CreateUser() 
+  {
+      var user = new User() 
+      {
+        Bio = "Lucas",
+        Email = "lucas@teste",
+        Image = "https://",
+        Name = "Lucas",
+        PasswordHash = "HASH",
+        Slug = "lucas"
+      };
+    using (var connection = new SqlConnection(CONNECTION_STRING)) 
+    {
+      connection.Open();
+      connection.Insert<User>(user);
+      Console.WriteLine("User created succesfully!");
+    };
+  } 
 }
