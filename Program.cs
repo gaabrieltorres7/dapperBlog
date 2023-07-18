@@ -10,8 +10,8 @@ public class Program
   {
     // ReadUsers();
     // ReadUser();
-    CreateUser();
-    
+    // CreateUser();
+    UpdateUser();
   }
 
   public static void ReadUsers() 
@@ -55,5 +55,25 @@ public class Program
       connection.Insert<User>(user);
       Console.WriteLine("User created succesfully!");
     };
-  } 
+  }
+
+  public static void UpdateUser() 
+  {
+    var user = new User() 
+    {
+      Id = 2,
+      Bio = "Lucas Ronaldo",
+      Email = "lucas@teste",
+      Image = "https://",
+      Name = "Luquinha",
+      PasswordHash = "HASH",
+      Slug = "luca"
+    };
+    using (var connection = new SqlConnection(CONNECTION_STRING)) 
+    {
+      connection.Open();
+      connection.Update<User>(user);
+      Console.WriteLine("User updated succesfully!");
+    };
+  }
 }
