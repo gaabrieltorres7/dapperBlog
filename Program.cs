@@ -12,11 +12,11 @@ public class Program
     var connection = new SqlConnection(CONNECTION_STRING);
     connection.Open();
 
-    // ReadUsers();
+    ReadUsers(connection);
     // ReadUser();
     // CreateUser();
     // UpdateUser();
-    DeleteUser();
+    // DeleteUser();
 
     connection.Close();
   }
@@ -28,56 +28,6 @@ public class Program
 
     foreach (var user in users) 
       Console.WriteLine(user.Name);
-
   }
 
-  public static void CreateUser() 
-  {
-      var user = new User() 
-      {
-        Bio = "Lucas",
-        Email = "lucas@teste",
-        Image = "https://",
-        Name = "Lucas",
-        PasswordHash = "HASH",
-        Slug = "lucas"
-      };
-    using (var connection = new SqlConnection(CONNECTION_STRING)) 
-    {
-      connection.Open();
-      connection.Insert<User>(user);
-      Console.WriteLine("User created succesfully!");
-    };
-  }
-
-  public static void UpdateUser() 
-  {
-    var user = new User() 
-    {
-      Id = 2,
-      Bio = "Lucas Ronaldo",
-      Email = "lucas@teste",
-      Image = "https://",
-      Name = "Luquinha",
-      PasswordHash = "HASH",
-      Slug = "luca"
-    };
-    using (var connection = new SqlConnection(CONNECTION_STRING)) 
-    {
-      connection.Open();
-      connection.Update<User>(user);
-      Console.WriteLine("User updated succesfully!");
-    };
-  }
-
-  public static void DeleteUser() 
-  {
-    using (var connection = new SqlConnection(CONNECTION_STRING)) 
-    {
-      connection.Open();
-      var user = connection.Get<User>(2);
-      connection.Delete<User>(user);
-      Console.WriteLine("User deleted succesfully!");
-    };
-  }
 }
