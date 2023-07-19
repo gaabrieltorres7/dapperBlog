@@ -13,5 +13,9 @@ namespace DapperBlog.Repositories
 
     public IEnumerable<User> GetAll() 
       => _connection.GetAll<User>();
+    
+    public User Get(int id)
+      => _connection.Get<User>(id);
+
    }
 }
