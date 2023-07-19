@@ -13,12 +13,18 @@ namespace DapperBlog.Repositories
 
     public IEnumerable<Role> GetAll()
       => _connection.GetAll<Role>();
-    
+
     public Role Get(int id)
       => _connection.Get<Role>(id);
-    
+
     public void Create(Role role)
       => _connection.Insert<Role>(role);
+
+    public void Update(Role role)
+    {
+      if (role.Id != 0)
+        _connection.Update<Role>(role);
+    }
 
   }
 }
