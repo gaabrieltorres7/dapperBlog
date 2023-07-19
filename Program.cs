@@ -1,4 +1,5 @@
-﻿using Dapper.Contrib.Extensions;
+﻿using Blog.Repositories;
+using Dapper.Contrib.Extensions;
 using DapperBlog.Models;
 using DapperBlog.Repositories;
 using Microsoft.Data.SqlClient;
@@ -13,7 +14,7 @@ public class Program
     connection.Open();
 
     ReadUsers(connection);
-    ReadRoles(connection);
+    //ReadRoles(connection);
     // ReadUser();
     // CreateUser();
     // UpdateUser();
@@ -24,7 +25,7 @@ public class Program
 
   public static void ReadUsers(SqlConnection connection) 
   {
-    var repository = new UserRepository(connection);
+    var repository = new Repository<User>(connection);
     var users = repository.GetAll();
 
     foreach (var user in users) 
