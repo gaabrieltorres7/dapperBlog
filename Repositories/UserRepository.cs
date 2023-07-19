@@ -29,5 +29,19 @@ namespace DapperBlog.Repositories
         _connection.Update<User>(user);
     }
 
+    public void Delete(User user)
+    {
+      if(user.Id != 0)
+        _connection.Delete<User>(user);
+    }
+
+    public void Delete(int id)
+    {
+      if(id != 0)
+      return;
+      var user = _connection.Get<User>(id);
+      _connection.Delete<User>(user);
+    }
+
   }
 }
