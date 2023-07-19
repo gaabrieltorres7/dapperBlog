@@ -18,7 +18,9 @@ namespace DapperBlog.Repositories
       => _connection.Get<User>(id);
     
     public void Create(User user)
-      => _connection.Insert<User>(user);
-
-   }
+    {
+      user.Id = 0;
+      _connection.Insert<User>(user);
+    }
+  }
 }
