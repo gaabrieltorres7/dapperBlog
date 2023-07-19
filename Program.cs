@@ -13,6 +13,7 @@ public class Program
     connection.Open();
 
     ReadUsers(connection);
+    ReadRoles(connection);
     // ReadUser();
     // CreateUser();
     // UpdateUser();
@@ -28,6 +29,15 @@ public class Program
 
     foreach (var user in users) 
       Console.WriteLine(user.Name);
+  }
+
+  public static void ReadRoles(SqlConnection connection) 
+  {
+    var repository = new RoleRepository(connection);
+    var roles = repository.GetAll();
+
+    foreach (var role in roles) 
+      Console.WriteLine(role.Name);
   }
 
 }
