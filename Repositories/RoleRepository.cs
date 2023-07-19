@@ -13,6 +13,9 @@ namespace DapperBlog.Repositories
 
     public IEnumerable<Role> GetAll()
       => _connection.GetAll<Role>();
-      
+    
+    public Role Get(int id)
+      => _connection.Get<Role>(id);
+
   }
 }
