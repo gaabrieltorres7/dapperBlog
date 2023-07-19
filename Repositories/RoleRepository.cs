@@ -16,6 +16,9 @@ namespace DapperBlog.Repositories
     
     public Role Get(int id)
       => _connection.Get<Role>(id);
+    
+    public void Create(Role role)
+      => _connection.Insert<Role>(role);
 
   }
 }
