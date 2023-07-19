@@ -22,5 +22,12 @@ namespace DapperBlog.Repositories
       user.Id = 0;
       _connection.Insert<User>(user);
     }
+
+    public void Update(User user)
+    {
+      if(user.Id != 0)
+        _connection.Update<User>(user);
+    }
+
   }
 }
