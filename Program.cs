@@ -1,5 +1,6 @@
 ﻿using Dapper.Contrib.Extensions;
 using DapperBlog.Models;
+using DapperBlog.Repositories;
 using Microsoft.Data.SqlClient;
 
 public class Program 
@@ -8,35 +9,26 @@ public class Program
 
   static void Main (string[] args) 
   {
+    var connection = new SqlConnection(CONNECTION_STRING);
+    connection.Open();
+
     // ReadUsers();
     // ReadUser();
     // CreateUser();
     // UpdateUser();
     DeleteUser();
+
+    connection.Close();
   }
 
-  public static void ReadUsers() 
+  public static void ReadUsers(SqlConnection connection) 
   {
-    using (var connection = new SqlConnection(CONNECTION_STRING)) 
-    {
-      connection.Open();
-      var users = connection.GetAll<User>();
-      foreach (var user in users) 
-      {
-        Console.WriteLine(@$"ID: {user.Id} // Name: {user.Name} // Email: {user.Email}");
-      }
-    }
+    var repository = new UserRepository(connection);
+    var users = repository.GetAll();
 
-  }
+    foreach (var user in users) 
+      Console.WriteLine(user.Name);
 
-  public static void ReadUser() 
-  {
-    using (var connection = new SqlConnection(CONNECTION_STRING)) 
-    {
-      connection.Open();
-      var user = connection.Get<User>(1);
-      Console.WriteLine(@$"Name: {user.Name}");
-    }
   }
 
   public static void CreateUser() 
