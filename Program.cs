@@ -13,10 +13,19 @@ public class Program
     var connection = new SqlConnection(CONNECTION_STRING);
     connection.Open();
 
-    //ReadUsers(connection);
-    ReadUsersWithRoles(connection);
+    ReadUsers(connection);
+    //ReadUsersWithRoles(connection);
+    //UpdateUser(connection);
+    //CreateUser(connection);
+    //DeleteUser(connection);
     //ReadRoles(connection);
+    //CreateRole(connection);
+    //UpdateRole(connection);
+    //DeleteRole(connection);
     //ReadTags(connection);
+    //CreateTag(connection);
+    //UpdateTag(connection);
+    //DeleteTag(connection);
 
     connection.Close();
   }
@@ -43,6 +52,38 @@ public class Program
     }
   }
 
+  public static void UpdateUser(SqlConnection connection) 
+  {
+    var repository = new UserRepository(connection);
+    var user = repository.Get(1);
+    user.Name = "New Name";
+    repository.Update(user);
+    Console.WriteLine("User updated");
+  }
+
+  public static void CreateUser(SqlConnection connection) 
+  {
+    var repository = new Repository<User>(connection);
+    var user = new User {
+      Name = "New User",
+      Email = "newuser@teste",
+      PasswordHash = "HASH",
+      Bio = "New User Bio",
+      Image = "https://",
+      Slug = "new-user",
+    };
+    repository.Create(user);
+    Console.WriteLine("User created");
+  }
+
+  public static void DeleteUser(SqlConnection connection) 
+  {
+    var repository = new Repository<User>(connection);
+    var user = repository.Get(3);
+    repository.Delete(user);
+    Console.WriteLine("User deleted");
+  }
+
   public static void ReadRoles(SqlConnection connection) 
   {
     var repository = new Repository<Role>(connection);
@@ -52,6 +93,34 @@ public class Program
       Console.WriteLine(role.Name);
   }
 
+  public static void CreateRole(SqlConnection connection) 
+  {
+    var repository = new Repository<Role>(connection);
+    var role = new Role {
+      Name = "New Role",
+      Slug = "new-role",
+    };
+    repository.Create(role);
+    Console.WriteLine("Role created");
+  }
+
+  public static void UpdateRole(SqlConnection connection) 
+  {
+    var repository = new Repository<Role>(connection);
+    var role = repository.Get(1);
+    role.Name = "New Role Name";
+    repository.Update(role);
+    Console.WriteLine("Role updated");
+  }
+
+  public static void DeleteRole(SqlConnection connection) 
+  {
+    var repository = new Repository<Role>(connection);
+    var role = repository.Get(1);
+    repository.Delete(role);
+    Console.WriteLine("Role deleted");
+  }
+
   public static void ReadTags(SqlConnection connection) 
   {
     var repository = new Repository<Tag>(connection);
@@ -59,6 +128,34 @@ public class Program
 
     foreach (var tag in items) 
       Console.WriteLine(tag.Name);
+  }
+
+  public static void CreateTag(SqlConnection connection) 
+  {
+    var repository = new Repository<Tag>(connection);
+    var tag = new Tag {
+      Name = "New Tag",
+      Slug = "new-tag",
+    };
+    repository.Create(tag);
+    Console.WriteLine("Tag created");
+  }
+
+  public static void UpdateTag(SqlConnection connection) 
+  {
+    var repository = new Repository<Tag>(connection);
+    var tag = repository.Get(1);
+    tag.Name = "New Tag Name";
+    repository.Update(tag);
+    Console.WriteLine("Tag updated");
+  }
+
+  public static void DeleteTag(SqlConnection connection) 
+  {
+    var repository = new Repository<Tag>(connection);
+    var tag = repository.Get(1);
+    repository.Delete(tag);
+    Console.WriteLine("Tag deleted");
   }
 
 }
