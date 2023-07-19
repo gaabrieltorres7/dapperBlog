@@ -1,7 +1,6 @@
 ﻿using Blog.Repositories;
 using Dapper.Contrib.Extensions;
 using DapperBlog.Models;
-using DapperBlog.Repositories;
 using Microsoft.Data.SqlClient;
 
 public class Program 
@@ -14,11 +13,8 @@ public class Program
     connection.Open();
 
     ReadUsers(connection);
-    //ReadRoles(connection);
-    // ReadUser();
-    // CreateUser();
-    // UpdateUser();
-    // DeleteUser();
+    ReadRoles(connection);
+    ReadTags(connection);
 
     connection.Close();
   }
@@ -26,19 +22,28 @@ public class Program
   public static void ReadUsers(SqlConnection connection) 
   {
     var repository = new Repository<User>(connection);
-    var users = repository.GetAll();
+    var items = repository.GetAll();
 
-    foreach (var user in users) 
+    foreach (var user in items) 
       Console.WriteLine(user.Name);
   }
 
   public static void ReadRoles(SqlConnection connection) 
   {
-    var repository = new RoleRepository(connection);
-    var roles = repository.GetAll();
+    var repository = new Repository<Role>(connection);
+    var items = repository.GetAll();
 
-    foreach (var role in roles) 
+    foreach (var role in items) 
       Console.WriteLine(role.Name);
+  }
+
+  public static void ReadTags(SqlConnection connection) 
+  {
+    var repository = new Repository<Tag>(connection);
+    var items = repository.GetAll();
+
+    foreach (var tag in items) 
+      Console.WriteLine(tag.Name);
   }
 
 }
